@@ -17,6 +17,8 @@ public class PeopleOcculusionPostEffect : MonoBehaviour
     private Texture2D m_cameraFeedTexture = null;
     private Material m_material = null;
 
+    float time = 0;
+
     void Awake()
     {
         m_material = new Material(m_peopleOcclusionShader);
@@ -58,6 +60,8 @@ public class PeopleOcculusionPostEffect : MonoBehaviour
 
             m_material.SetTexture("_OcclusionDepth", m_humanBodyManager.humanDepthTexture);
             m_material.SetTexture("_OcclusionStencil", m_humanBodyManager.humanStencilTexture);
+            float time = Time.time - Mathf.Floor(Time.time);
+            m_material.SetFloat("_Infection", Mathf.Floor(time));
 
             // m_material.SetFloat("_ARWorldScale", 1f/m_arOrigin.transform.localScale.x);
 

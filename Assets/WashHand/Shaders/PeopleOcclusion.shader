@@ -76,6 +76,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                col.a = col.a * _Infection;
                 fixed4 cameraFeedCol = tex2D(_CameraFeed, i.uv1);
 
                 float sceneDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv));
