@@ -34,7 +34,7 @@ public class TestDepthImage : MonoBehaviour
     [Tooltip("The AROcclusionManager which will produce frame events.")]
     AROcclusionManager m_OcclusionManager;
 
-     /// <summary>
+    /// <summary>
     /// Get or set the <c>AROcclusionManager</c>.
     /// </summary>
     public AROcclusionManager occlusionManager
@@ -113,10 +113,10 @@ public class TestDepthImage : MonoBehaviour
 
         // To use the stencil, be sure the HumanSegmentationStencilMode property on the AROcclusionManager is set to a
         // non-disabled value.
-        m_RawImage.texture = humanStencil;
+        //m_RawImage.texture = humanStencil;
 
         // To use the depth, be sure the HumanSegmentationDepthMode property on the AROcclusionManager is set to a
         /// non-disabled value.
-        // m_RawImage.texture = eventArgs.humanDepth;
+        m_RawImage.texture = humanDepth;
     }
 }
