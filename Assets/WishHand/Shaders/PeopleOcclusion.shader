@@ -10,16 +10,19 @@
         _UVMultiplierPortrait ("UV MultiplerPortrait", Float) = 0.0
         _UVFlip ("Flip UV", Float) = 0.0
         _ONWIDE("Onwide", Int) = 0
+        _Infection("Infection",Float) = 1.0
     }
     SubShader
     {
+
+        Tags { "RenderType" = "Transparent" "Queue"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
         // No culling or depth
         Cull Off ZWrite Off ZTest Always
  
         Pass
         {
             CGPROGRAM
-           
             #pragma vertex vert
             #pragma fragment frag
  
@@ -49,6 +52,7 @@
             float _UVMultiplierPortrait;
             float _UVFlip;
             int _ONWIDE;
+            float _Infection;
  
             v2f vert (appdata v)
             {
@@ -73,10 +77,11 @@
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
                 fixed4 cameraFeedCol = tex2D(_CameraFeed, i.uv1);
+
                 float sceneDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv));
-                float4 stencilCol = tex2D(_OcclusionStencil, i.uv2);
+                float4 stencilCol = tex2D(_OcclusionStencil, i.uv2) ;
+
                 float occlusionDepth = tex2D(_OcclusionDepth, i.uv2) * 0.625; //0.625 hack occlusion depth based on real world observation
-                           
                 float showOccluder = step(occlusionDepth, sceneDepth) * stencilCol.r; // 1 if (depth >= ocluderDepth && stencil)
  
                 return lerp(col, cameraFeedCol, showOccluder);
